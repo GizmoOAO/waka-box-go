@@ -13,11 +13,12 @@ import (
 )
 
 func init() {
-	godotenv.Load(".env")
+	_ = godotenv.Load(".env")
 }
 
 func main() {
 	wakaAPIKey := os.Getenv("WAKATIME_API_KEY")
+	wakaAPIBase := os.Getenv("WAKATIME_API_BASE")
 	ghToken := os.Getenv("GH_TOKEN")
 	ghUsername := os.Getenv("GH_USER")
 	gistID := os.Getenv("GIST_ID")
@@ -40,7 +41,7 @@ func main() {
 		TimeStyle: os.Getenv("GIST_TIMESTYLE"),
 	}
 
-	box := wakabox.NewBox(wakaAPIKey, ghUsername, ghToken, style)
+	box := wakabox.NewBox(wakaAPIKey, ghUsername, ghToken, style, wakaAPIBase)
 
 	ctx := context.Background()
 	lines, err := box.GetStats(ctx)

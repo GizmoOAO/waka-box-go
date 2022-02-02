@@ -47,10 +47,10 @@ type Box struct {
 }
 
 // NewBox creates a box struct with appropriate wakatime and github information and gist styling information
-func NewBox(wakaAPIKey, ghUsername, ghToken string, style BoxStyle) *Box {
+func NewBox(wakaAPIKey, ghUsername, ghToken string, style BoxStyle, wakaAPIBase ...string) *Box {
 	box := &Box{}
 
-	box.wakatime = wakatime.NewClient(wakaAPIKey, nil)
+	box.wakatime = wakatime.NewClient(wakaAPIKey, nil, wakaAPIBase...)
 
 	tp := github.BasicAuthTransport{
 		Username: strings.TrimSpace(ghUsername),
